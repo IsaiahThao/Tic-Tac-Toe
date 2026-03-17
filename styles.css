@@ -1,0 +1,22 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: min(90vw, 450px);
+    height: min(90vw, 450px);
+    margin: 1rem auto;
+}
+
+.cell{
+    background-color: bisque;
+}
+
+.cell{
+    background-color: bisque;
+}
