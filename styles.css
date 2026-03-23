@@ -25,3 +25,23 @@
 h1{
     text-align: center;
 }
+
+#winner-text{
+    text-align: center;
+    font-size: 3rem;
+}
+
+button{
+    display: block;
+    margin: auto;
+    width: 5rem;
+    height: 1.5rem;
+}
+
+.win-counter{
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+    font-size: 1.75rem;
+    margin: 1.5rem;
+}
