@@ -18,7 +18,11 @@ const GameBoard = (function(){
         return gameBoard;
     }
 
-    return {updateBoard, returnBoard};
+    function resetBoard() {
+        gameBoard = ["","","","","","","","",""];
+    }
+
+    return {updateBoard, returnBoard, resetBoard};
 }())
 
 function checkWinner(){
@@ -35,11 +39,13 @@ function checkWinner(){
 
         if (board[a] === board[b] && board[b] === board[c] && board[a] !== ""){
             console.log(`${board[a]} wins!`);
+            return true
         }
     }
 
     if (!board.includes("")) {
         console.log("Tie game");
+        return true
     }
 
     return null;
@@ -68,13 +74,23 @@ const player1 = createPlayer("Player 1", "X");
 const player2 = createPlayer("Player 2", "O");
 
 const cells = document.querySelectorAll('.cell');
-let currentPlayer = player1
+let currentPlayer = player1;
+let gameOver = false;
 
 cells.forEach(cell => {
         cell.addEventListener('click', (e) => {
+            if (gameOver) return;
             e.target.innerHTML = `<h3> ${currentPlayer.symbol} </h3>`
             GameBoard.updateBoard(Number(e.target.id), currentPlayer.symbol);
-            currentPlayer = checkTurn(currentPlayer)
-            checkWinner();
+            currentPlayer = checkTurn(currentPlayer);
+            gameOver = checkWinner();
         });
     });
+
+document.querySelector('#resetButton').addEventListener('click', (e)=>{
+    cells.forEach(cell => {
+        cell.textContent = '';
+    })
+    GameBoard.resetBoard();
+    gameOver = false;
+})
