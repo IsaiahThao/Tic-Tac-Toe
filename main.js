@@ -22,13 +22,33 @@ const GameBoard = (function(){
 }())
 
 function checkWinner(){
+   const board = GameBoard.returnBoard();
 
+    const winCombos = [
+        [0,1,2], [3,4,5], [6,7,8],
+        [0,3,6], [1,4,7], [2,5,8],
+        [0,4,8], [2,4,6]
+    ];
+
+    for (let combo of winCombos) {
+        const [a, b, c] = combo;
+
+        if (board[a] === board[b] && board[b] === board[c] && board[a] !== ""){
+            console.log(`${board[a]} wins!`);
+        }
+    }
+
+    if (!board.includes("")) {
+        console.log("Tie game");
+    }
+
+    return null;
 }
 
 function createPlayer(name, symbol) {
     return {
         name: name,
-        symbol: symbol
+        symbol: symbol,
     };
 }
 
@@ -51,12 +71,10 @@ const cells = document.querySelectorAll('.cell');
 let currentPlayer = player1
 
 cells.forEach(cell => {
-    cell.addEventListener('click', (e) => {
-        e.target.style.backgroundColor = 'red';
-        GameBoard.updateBoard(Number(e.target.id), currentPlayer.symbol);
-        currentPlayer = checkTurn(currentPlayer)
-        checkWinner();
+        cell.addEventListener('click', (e) => {
+            e.target.innerHTML = `<h3> ${currentPlayer.symbol} </h3>`
+            GameBoard.updateBoard(Number(e.target.id), currentPlayer.symbol);
+            currentPlayer = checkTurn(currentPlayer)
+            checkWinner();
+        });
     });
-});
-
-
